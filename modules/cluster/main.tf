@@ -42,43 +42,15 @@ EOF
 locals {
   ip_whitelist = concat([
     "ip-address/32",
-    "35.239.226.228/32"
+    "ip-address/32"
      ], var.ip_whitelist)
-
-  ip_whitelist_two = [
-    "35.193.219.120/32",
-    "2a01:4b00:8717:b700::/64",
-    "34.66.88.220/32",
-    "80.110.108.80/32",
-    "84.115.71.231/32"
-  ]
   // this is a hack to allow up to 10 whitelist ip addresses. It results in duplicate security
   // rules, but that is the best option at this point. Terraform 0.12.x should allow us to get
   // rid of this as it supports dynamic blocks
   ip_whielist_max = length(var.ip_whitelist) + 1
-  ip_whielist_two_max = length(local.ip_whitelist_two) + 1
-
   ip_whielist_min = length(local.ip_whitelist) + 1 > 5 ? 5 : 0
-  ip_whielist_two_min = length(local.ip_whitelist_two) + 1 > 5 ? 5 : 0
   cloudflare1 = [
-    "103.21.244.0/22",
-    "103.22.200.0/22",
-    "103.31.4.0/22",
-    "104.16.0.0/12",
-    "108.162.192.0/18",
-  ]
-  cloudflare2 = [
-    "131.0.72.0/22",
-    "141.101.64.0/18",
-    "162.158.0.0/15",
-    "172.64.0.0/13",
-    "173.245.48.0/20",
-  ]
-  cloudflare3 = [
-    "188.114.96.0/20",
-    "190.93.240.0/20",
-    "197.234.240.0/22",
-    "198.41.128.0/17",
+    "ip-address/22",
   ]
 }
 
