@@ -1,0 +1,23 @@
+apiVersion: v1
+data:
+  db.dev.example.io: |
+    @ IN SOA  ns1.dev.example.io.  dev.example.io.  ( 2020092816 3600 3600 1209600 3600 )
+      IN NS ns1.dev.example.io.
+      IN A 1.1.1.1
+      IN AAAA 2604:1380:4111:2000::1
+
+
+    ns1                   IN  A  1.1.1.1
+  db.dev1.example.io: |
+    @ IN SOA  ns1.dev1.example.io.  dev1.example.io.  ( 2020062401 3600 3600 1209600 3600 )
+      IN NS ns1.dev1.example.io.
+      IN A 1.1.1.1
+      IN AAAA 2604:1380:4111:2000::1
+
+
+    ns1                   IN  A  1.1.1.1
+    _acme-challenge       IN  TXT qQoJUPd4J078jypIrXYRlB10Qwwl0
+kind: ConfigMap
+metadata:
+  name: coredns-zones
+  namespace: kube-system

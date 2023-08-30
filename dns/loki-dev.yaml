@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: loki-master
+  name: loki-master
+  namespace: loki
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: http-metrics
+    port: 3100
+    protocol: TCP
+    targetPort: http-metrics
+  selector:
+    app: loki-master
+  sessionAffinity: None
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: loki-master
+  namespace: loki
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+    kubernetes.io/ingress.global-static-ip-name: "master-loki"
+spec:
+  rules:
+  - host: loki-master-dexter.dev.example.io
+    http:
+      paths:
+      - backend:
+          serviceName: loki-master
+          servicePort: 3100
+  tls:
+  - secretName: ingress-ssl-cert
